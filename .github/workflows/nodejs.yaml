@@ -1,10 +1,28 @@
-name: End-to-end tests
+name: Learning CI/CD with GitHub Actions
 on: push
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
 jobs:
-  cypress-run:
+    testes-cypress-e2e:
+    cypress-run:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout
+      - name: CheckoutTestes
         uses: actions/checkout@v4
-      - name: Cypress run
+
+        - name: Setup Node.js environment
+        uses: actions/setup-node@v3
+        with:
+          node-version: '22.13'
+        - name: Cypress run
         uses: cypress-io/github-action@v6
+
+        -name: Intall dependencies
+          run: npm install
+          
